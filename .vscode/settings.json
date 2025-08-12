@@ -1,4 +1,14 @@
 {
-  "python.analysis.typeCheckingMode": "off",
-  "cursorpyright.analysis.typeCheckingMode": "off"
+    "python.pythonPath": "./backend/.venv/bin/python",
+    "python.defaultInterpreterPath": "./backend/.venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.analysis.extraPaths": [
+        "./backend"
+    ],
+    "python.analysis.autoSearchPaths": true,
+    "terminal.integrated.cwd": "./backend",
+    "files.associations": {
+        "*.py": "python"
+    }
 }
