@@ -12,9 +12,13 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 512m 
 
   backend:
-    image: ghcr.io/suna-ai/suna-backend:latest
+    # image: ghcr.io/suna-ai/suna-backend:latest
     platform: linux/amd64
     build:
       context: ./backend
@@ -35,14 +39,18 @@ services:
         condition: service_healthy
       worker:
         condition: service_started
+    deploy:
+      resources:
+        limits:
+          memory: 768m 
 
   worker:
-    image: ghcr.io/suna-ai/suna-backend:latest
+    # image: ghcr.io/suna-ai/suna-backend:latest
     platform: linux/amd64
     build:
       context: ./backend
       dockerfile: Dockerfile
-    command: uv run dramatiq --skip-logging --processes 4 --threads 4 run_agent_background
+    command: uv run dramatiq --skip-logging --processes 2 --threads 2 run_agent_background
     volumes:
       - ./backend/.env:/app/.env:ro
     env_file:
@@ -55,6 +63,10 @@ services:
     depends_on:
       redis:
         condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 768m 
 
   frontend:
     init: true
@@ -67,6 +79,10 @@ services:
       - ./frontend/.env.local:/app/.env.local:ro
     depends_on:
       - backend
+    deploy:
+      resources:
+        limits:
+          memory: 512m 
 
 volumes:
   redis_data:

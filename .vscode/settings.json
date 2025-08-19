@@ -10,5 +10,9 @@
     "terminal.integrated.cwd": "./backend",
     "files.associations": {
         "*.py": "python"
-    }
+    },
+    "cursorpyright.analysis.autoSearchPaths": true,
+    "cursorpyright.analysis.extraPaths": [
+        "./backend"
+    ]
 }
